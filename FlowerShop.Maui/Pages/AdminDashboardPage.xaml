@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlowerShop.Maui.Pages.AdminDashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#C2185B"
+              Padding="16"
+              ColumnDefinitions="*,Auto">
+            <Label Grid.Column="0"
+                   Text="🌸 Admin Panel"
+                   TextColor="White"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center" />
+            <Label Grid.Column="1"
+                   Text="Çıkış"
+                   TextColor="White"
+                   FontSize="14"
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogoutTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- Admin Navigation -->
+        <Grid Grid.Row="1"
+              BackgroundColor="#AD1457"
+              Padding="8,10"
+              ColumnDefinitions="*,*,*,*">
+
+            <VerticalStackLayout Grid.Column="0"
+                                 HorizontalOptions="Center"
+                                 Spacing="4">
+                <Label Text="📦"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+                <Label Text="Siparişler"
+                       TextColor="White"
+                       FontSize="11"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnOrdersTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 HorizontalOptions="Center"
+                                 Spacing="4">
+                <Label Text="🌸"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+                <Label Text="Ürünler"
+                       TextColor="White"
+                       FontSize="11"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProductsTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2"
+                                 HorizontalOptions="Center"
+                                 Spacing="4">
+                <Label Text="🗂️"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+                <Label Text="Kategoriler"
+                       TextColor="White"
+                       FontSize="11"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCategoriesTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="3"
+                                 HorizontalOptions="Center"
+                                 Spacing="4">
+                <Label Text="👥"
+                       FontSize="20"
+                       HorizontalOptions="Center" />
+                <Label Text="Kullanıcılar"
+                       TextColor="White"
+                       FontSize="11"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnUsersTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <!-- Dashboard Content -->
+        <ScrollView Grid.Row="2" Padding="16">
+            <VerticalStackLayout Spacing="16">
+
+                <!-- Loading -->
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Color="#C2185B"
+                                   HorizontalOptions="Center"
+                                   Margin="0,20,0,0" />
+
+                <!-- Welcome -->
+                <Label x:Name="WelcomeLabel"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#C2185B"
+                       Margin="0,8,0,0" />
+
+                <!-- Stats Cards -->
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+
+                    <!-- Total Orders -->
+                    <Border Grid.Row="0" Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="#F8BBD9"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="📦" FontSize="32" HorizontalOptions="Center" />
+                            <Label x:Name="TotalOrdersLabel"
+                                   Text="0"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Toplam Sipariş"
+                                   FontSize="12"
+                                   TextColor="#888"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Pending Orders -->
+                    <Border Grid.Row="0" Grid.Column="1"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="#F8BBD9"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="⏳" FontSize="32" HorizontalOptions="Center" />
+                            <Label x:Name="PendingOrdersLabel"
+                                   Text="0"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#E91E63"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Bekleyen Sipariş"
+                                   FontSize="12"
+                                   TextColor="#888"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Products -->
+                    <Border Grid.Row="1" Grid.Column="0"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="#F8BBD9"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="🌸" FontSize="32" HorizontalOptions="Center" />
+                            <Label x:Name="TotalProductsLabel"
+                                   Text="0"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Toplam Ürün"
+                                   FontSize="12"
+                                   TextColor="#888"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Users -->
+                    <Border Grid.Row="1" Grid.Column="1"
+                            BackgroundColor="White"
+                            StrokeShape="RoundRectangle 16"
+                            Stroke="#F8BBD9"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                            <Label Text="👥" FontSize="32" HorizontalOptions="Center" />
+                            <Label x:Name="TotalUsersLabel"
+                                   Text="0"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Toplam Kullanıcı"
+                                   FontSize="12"
+                                   TextColor="#888"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- Revenue Card -->
+                <Border BackgroundColor="#C2185B"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="#C2185B"
+                        Padding="20">
+                    <VerticalStackLayout Spacing="6" HorizontalOptions="Center">
+                        <Label Text="💰 Toplam Gelir"
+                               FontSize="14"
+                               TextColor="#F8BBD9"
+                               HorizontalOptions="Center" />
+                        <Label x:Name="TotalRevenueLabel"
+                               Text="0.00 ₺"
+                               FontSize="32"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

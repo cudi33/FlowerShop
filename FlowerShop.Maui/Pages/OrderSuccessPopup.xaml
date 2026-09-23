@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="FlowerShop.Maui.Popups.OrderSuccessPopup"
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    Color="Transparent">
+
+    <Border BackgroundColor="White"
+            StrokeShape="RoundRectangle 20"
+            Stroke="#F8BBD9"
+            Padding="32"
+            WidthRequest="320">
+        <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+
+            <!-- أيقونة النجاح -->
+            <Label Text="🌸"
+                   FontSize="64"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Siparişiniz Alındı!"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#C2185B"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="ProductNameLabel"
+                   FontSize="14"
+                   TextColor="#666"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <Label x:Name="TotalLabel"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#AD1457"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Teşekkür ederiz! Siparişiniz en kısa sürede hazırlanacaktır. 🌹"
+                   FontSize="13"
+                   TextColor="#888"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <Button Text="Tamam 🌸"
+                    BackgroundColor="#C2185B"
+                    TextColor="White"
+                    CornerRadius="25"
+                    HeightRequest="48"
+                    FontAttributes="Bold"
+                    Clicked="OnTamamClicked" />
+
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

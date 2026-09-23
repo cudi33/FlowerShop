@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlowerShop.Maui.Pages.AdminProductsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#C2185B"
+              Padding="16"
+              ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0"
+                    Text="←"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    FontSize="22"
+                    Clicked="OnBackTapped" />
+            <Label Grid.Column="1"
+                   Text="Ürünler 🌸"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" Padding="16">
+            <VerticalStackLayout Spacing="16">
+
+                <!-- Add/Edit Form -->
+                <Border Padding="16"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#F8BBD9">
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label x:Name="FormTitleLabel"
+                               Text="Yeni Ürün Ekle"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#C2185B" />
+
+                        <!-- Name -->
+                        <Border x:Name="NameBorder"
+                                Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Entry x:Name="NameEntry"
+                                   Placeholder="Ürün adı *"
+                                   TextColor="#333"
+                                   PlaceholderColor="#CCC" />
+                        </Border>
+
+                        <!-- Price -->
+                        <Border x:Name="PriceBorder"
+                                Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Entry x:Name="PriceEntry"
+                                   Placeholder="Fiyat * (örn: 99.90)"
+                                   Keyboard="Numeric"
+                                   TextColor="#333"
+                                   PlaceholderColor="#CCC" />
+                        </Border>
+
+                        <!-- Stock -->
+                        <Border x:Name="StockBorder"
+                                Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Entry x:Name="StockEntry"
+                                   Placeholder="Stok miktarı *"
+                                   Keyboard="Numeric"
+                                   TextColor="#333"
+                                   PlaceholderColor="#CCC" />
+                        </Border>
+
+                        <!-- Category Picker -->
+                        <Border x:Name="CategoryBorder"
+                                Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Picker x:Name="CategoryPicker"
+                                    Title="Kategori seç *"
+                                    TitleColor="#CCC"
+                                    TextColor="#333"
+                                    ItemDisplayBinding="{Binding Name}" />
+                        </Border>
+
+                        <!-- Image URL + 📷 Button -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <Border Grid.Column="0"
+                                    Stroke="#F8BBD9"
+                                    StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#FFF8F9"
+                                    Padding="8,0">
+                                <Entry x:Name="ImageUrlEntry"
+                                       Placeholder="Resim URL (isteğe bağlı)"
+                                       Keyboard="Url"
+                                       TextColor="#333"
+                                       PlaceholderColor="#CCC"
+                                       IsReadOnly="True" />
+                            </Border>
+                            <Button Grid.Column="1"
+                                    Text="📷"
+                                    BackgroundColor="#F3E5F5"
+                                    TextColor="#C2185B"
+                                    CornerRadius="10"
+                                    WidthRequest="50"
+                                    HeightRequest="44"
+                                    Clicked="OnSelectImageClicked" />
+                        </Grid>
+
+                        <!-- Image Preview -->
+                        <Image x:Name="ImagePreview"
+                               HeightRequest="120"
+                               Aspect="AspectFill"
+                               BackgroundColor="#FCE4EC"
+                               IsVisible="False">
+                            <Image.Clip>
+                                <RoundRectangleGeometry CornerRadius="10"
+                                                        Rect="0,0,500,120" />
+                            </Image.Clip>
+                        </Image>
+
+                        <Label x:Name="FormMessageLabel"
+                               IsVisible="False"
+                               FontSize="12"
+                               HorizontalOptions="Center" />
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button Grid.Column="0"
+                                    x:Name="SaveButton"
+                                    Text="💾 Kaydet"
+                                    BackgroundColor="#C2185B"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="44"
+                                    Clicked="OnSaveProductClicked" />
+                            <Button Grid.Column="1"
+                                    x:Name="CancelButton"
+                                    Text="İptal"
+                                    BackgroundColor="#F3E5F5"
+                                    TextColor="#C2185B"
+                                    CornerRadius="10"
+                                    HeightRequest="44"
+                                    IsVisible="False"
+                                    Clicked="OnCancelEditClicked" />
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Loading -->
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Color="#C2185B"
+                                   HorizontalOptions="Center" />
+
+                <!-- Empty -->
+                <VerticalStackLayout x:Name="EmptyView"
+                                     IsVisible="False"
+                                     HorizontalOptions="Center"
+                                     Spacing="8"
+                                     Margin="0,40,0,0">
+                    <Label Text="🌸" FontSize="48" HorizontalOptions="Center" />
+                    <Label Text="Henüz ürün yok"
+                           FontSize="18"
+                           TextColor="#C2185B"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Products Grid 2 columns -->
+                <CollectionView x:Name="ProductsCollection"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         HorizontalItemSpacing="10"
+                                         VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="0"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 14"
+                                    Stroke="#F8BBD9">
+                                <Grid RowDefinitions="130,Auto">
+
+                                    <!-- Product Image -->
+                                    <Grid Grid.Row="0" BackgroundColor="#FCE4EC">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="AspectFill"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="Fill" />
+                                        <!-- Fallback emoji -->
+                                        <Label Text="🌸"
+                                               FontSize="40"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               ZIndex="-1" />
+                                    </Grid>
+
+                                    <!-- Info + Buttons -->
+                                    <VerticalStackLayout Grid.Row="1"
+                                                         Padding="8,6"
+                                                         Spacing="2">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#333"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding CategoryName}"
+                                               FontSize="11"
+                                               TextColor="#C2185B" />
+                                        <Label Text="{Binding Price, StringFormat='{0:N2} ₺'}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#AD1457" />
+                                        <Label Text="{Binding StockQuantity, StringFormat='Stok: {0}'}"
+                                               FontSize="11"
+                                               TextColor="#888" />
+
+                                        <!-- Edit + Delete Buttons -->
+                                        <Grid ColumnDefinitions="*,*" ColumnSpacing="6" Margin="0,4,0,0">
+                                            <Button Grid.Column="0"
+                                                    Text="✏️ Düzenle"
+                                                    BackgroundColor="#F3E5F5"
+                                                    TextColor="#7B1FA2"
+                                                    CornerRadius="8"
+                                                    HeightRequest="34"
+                                                    FontSize="12"
+                                                    Padding="0"
+                                                    CommandParameter="{Binding .}"
+                                                    Clicked="OnEditProductClicked" />
+                                            <Button Grid.Column="1"
+                                                    Text="🗑️ Sil"
+                                                    BackgroundColor="#FCE4EC"
+                                                    TextColor="#C2185B"
+                                                    CornerRadius="8"
+                                                    HeightRequest="34"
+                                                    FontSize="12"
+                                                    Padding="0"
+                                                    CommandParameter="{Binding Id}"
+                                                    Clicked="OnDeleteProductClicked" />
+                                        </Grid>
+                                    </VerticalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

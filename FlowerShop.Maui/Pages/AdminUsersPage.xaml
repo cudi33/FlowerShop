@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlowerShop.Maui.Pages.AdminUsersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#C2185B"
+              Padding="16"
+              ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0"
+                    Text="←"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    FontSize="22"
+                    Clicked="OnBackTapped" />
+            <Label Grid.Column="1"
+                   Text="Kullanıcılar 👥"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" Padding="16">
+            <VerticalStackLayout Spacing="12">
+
+                <!-- Loading -->
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Color="#C2185B"
+                                   HorizontalOptions="Center"
+                                   Margin="0,20,0,0" />
+
+                <!-- Empty -->
+                <VerticalStackLayout x:Name="EmptyView"
+                                     IsVisible="False"
+                                     HorizontalOptions="Center"
+                                     Spacing="8"
+                                     Margin="0,60,0,0">
+                    <Label Text="👥" FontSize="48" HorizontalOptions="Center" />
+                    <Label Text="Henüz kullanıcı yok"
+                           FontSize="18"
+                           TextColor="#C2185B"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Users List -->
+                <CollectionView x:Name="UsersCollection"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,4"
+                                    Padding="16"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 12"
+                                    Stroke="#F8BBD9">
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="4">
+
+                                    <!-- Name -->
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           Text="{Binding FullName}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="#333" />
+
+                                    <!-- Admin Badge -->
+                                    <Border Grid.Row="0" Grid.Column="1"
+                                            Padding="8,4"
+                                            BackgroundColor="#FCE4EC"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="#F8BBD9"
+                                            IsVisible="{Binding IsAdmin}">
+                                        <Label Text="Admin"
+                                               FontSize="11"
+                                               TextColor="#C2185B" />
+                                    </Border>
+
+                                    <!-- Email -->
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                           FontSize="13"
+                                           TextColor="#666">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="✉️ " />
+                                                <Span Text="{Binding Email}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <!-- Status -->
+                                    <Label Grid.Row="2" Grid.ColumnSpan="2"
+                                           FontSize="12"
+                                           TextColor="#888">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Durum: " FontAttributes="Bold" />
+                                                <Span Text="{Binding IsActive, StringFormat='{0}'}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

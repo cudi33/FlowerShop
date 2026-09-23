@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlowerShop.Maui.MainPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFF8F9">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- HEADER -->
+            <Grid BackgroundColor="#C2185B" Padding="16,12"
+                  ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0"
+                       Text="🌸 FlowerShop"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+                <HorizontalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Center">
+
+                   
+
+                    <!-- المنتجات -->
+                    <Label Text="Ürünler"
+           TextColor="White"
+           FontSize="14"
+           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnShopNowClicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- الطلبات -->
+                    <Label Text="Siparişler"
+           TextColor="White"
+           FontSize="14"
+           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOrdersTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- اسم المستخدم -->
+                    <Label x:Name="UserNameLabel"
+           TextColor="White"
+           FontSize="14"
+           IsVisible="False"
+           VerticalOptions="Center" />
+
+                    <!-- تسجيل دخول — يظهر لما ما في لوجين -->
+                    <Label x:Name="LoginLabel"
+           Text="Giriş Yap"
+           TextColor="White"
+           FontSize="14"
+           IsVisible="True"
+           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- شيفره -->
+                    <Label x:Name="ChangePasswordLabel"
+           Text="Şifre Değiştir"
+           TextColor="White"
+           FontSize="14"
+           IsVisible="False"
+           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnChangePasswordTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- خروج -->
+                    <Label x:Name="LogoutLabel"
+           Text="Çıkış"
+           TextColor="White"
+           FontSize="14"
+           IsVisible="False"
+           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLogoutTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </HorizontalStackLayout>
+            </Grid>
+
+            <!-- HERO -->
+            <Grid HeightRequest="280" BackgroundColor="#FCE4EC">
+                <Image Source="hero_flowers.jpg"
+                       Aspect="AspectFill"
+                       Opacity="0.35" />
+                <VerticalStackLayout VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Spacing="14"
+                                     Padding="20">
+                    <Label Text="Sevdiklerinize"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           TextColor="#880E4F"
+                           HorizontalOptions="Center" />
+                    <Label Text="En Taze Çiçekler 🌹"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           TextColor="#C2185B"
+                           HorizontalOptions="Center" />
+                    <Label Text="Özel günleri unutulmaz kılın"
+                           FontSize="14"
+                           TextColor="#AD1457"
+                           HorizontalOptions="Center" />
+                    <Button Text="🛍️ Alışverişe Başla"
+                            BackgroundColor="#C2185B"
+                            TextColor="White"
+                            CornerRadius="25"
+                            Padding="30,12"
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HorizontalOptions="Center"
+                            Clicked="OnShopNowClicked" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- FEATURES -->
+            <Grid ColumnDefinitions="*,*,*"
+                  BackgroundColor="White"
+                  Padding="10,14">
+                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="4">
+                    <Label Text="🚚" FontSize="22" HorizontalOptions="Center" />
+                    <Label Text="Hızlı Teslimat" FontSize="11" TextColor="#555" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="4">
+                    <Label Text="🌿" FontSize="22" HorizontalOptions="Center" />
+                    <Label Text="Taze Ürünler" FontSize="11" TextColor="#555" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="4">
+                    <Label Text="🎁" FontSize="22" HorizontalOptions="Center" />
+                    <Label Text="Sürpriz Paket" FontSize="11" TextColor="#555" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Grid>
+
+           
+            <!-- FEATURED PRODUCTS -->
+            <VerticalStackLayout Padding="16,8,16,16" Spacing="12" BackgroundColor="#FFF8F9">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0"
+                           Text="🔥 En Çok Satanlar"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#C2185B" />
+                    <Label Grid.Column="1"
+                           Text="Tümünü Gör →"
+                           FontSize="13"
+                           TextColor="#C2185B"
+                           VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnShopNowClicked" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <CollectionView x:Name="FeaturedCollectionView"
+                                HeightRequest="220"
+                                ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,12,0"
+                                    Padding="0"
+                                    WidthRequest="150"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#F8BBD9"
+                                    BackgroundColor="White">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                          Tapped="OnFeaturedProductTapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="0">
+                                    <Grid BackgroundColor="#FCE4EC" HeightRequest="110">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="AspectFill"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="Fill" />
+                                        <Label Text="🌸"
+                                               FontSize="30"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               ZIndex="-1" />
+                                    </Grid>
+                                    <VerticalStackLayout Padding="8,6" Spacing="3">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#333"
+                                               LineBreakMode="TailTruncation" />
+                                        <Label Text="{Binding Price, StringFormat='{0:N2} ₺'}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#AD1457" />
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- CATEGORIES SECTION -->
+            <VerticalStackLayout Padding="16,16,16,8" Spacing="12" BackgroundColor="#FFF8F9">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0"
+                Text="🗂️ Kategoriler"
+                FontSize="18"
+                FontAttributes="Bold"
+                TextColor="#C2185B" />
+                    <Label Grid.Column="1"
+                Text="Tümünü Gör →"
+                FontSize="13"
+                TextColor="#C2185B"
+                VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoriesTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <CollectionView x:Name="CategoriesCollectionView"
+                     HeightRequest="120"
+                     ItemsLayout="HorizontalList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0,0,10,0"
+                         Padding="0"
+                         WidthRequest="100"
+                         HeightRequest="110"
+                         StrokeShape="RoundRectangle 14"
+                         Stroke="#F8BBD9"
+                         BackgroundColor="White">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
+                                               Tapped="OnCategoryTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid RowDefinitions="*,Auto">
+                                    <Grid Grid.Row="0" BackgroundColor="#FCE4EC">
+                                        <Image Source="{Binding ImageUrl}"
+                                    Aspect="AspectFill"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill" />
+                                        <Label Text="🌸"
+                                    FontSize="28"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    ZIndex="-1" />
+                                    </Grid>
+                                    <Label Grid.Row="1"
+                                Text="{Binding Name}"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="#333"
+                                HorizontalOptions="Center"
+                                LineBreakMode="TailTruncation"
+                                Padding="4,3" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+
+            <!-- FOOTER -->
+            <VerticalStackLayout BackgroundColor="#C2185B" Padding="16,18" Spacing="4">
+                <Label Text="🌸 FlowerShop"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                <Label Text="Tüm hakları saklıdır © 2026"
+                       FontSize="11"
+                       TextColor="#F8BBD9"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

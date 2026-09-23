@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<toolkit:Popup
+    x:Class="FlowerShop.Maui.Pages.StatusPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Size="350,420"
+    CanBeDismissedByTappingOutsideOfPopup="True">
+
+    <Border BackgroundColor="White"
+            StrokeShape="RoundRectangle 20"
+            Stroke="#F8BBD9"
+            Padding="24">
+        <VerticalStackLayout Spacing="16">
+
+            <Label Text="Sipariş Durumunu Güncelle 🌸"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#C2185B"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="OrderInfoLabel"
+                   FontSize="13"
+                   TextColor="#888"
+                   HorizontalOptions="Center" />
+
+            <!-- Status Options -->
+            <VerticalStackLayout Spacing="8">
+
+                <Button Text="⏳ Beklemede"
+                        BackgroundColor="#FFF8F9"
+                        TextColor="#333"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="Pending"
+                        Clicked="OnStatusSelected" />
+
+                <Button Text="✅ Onaylandı"
+                        BackgroundColor="#FFF8F9"
+                        TextColor="#333"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="Confirmed"
+                        Clicked="OnStatusSelected" />
+
+                <Button Text="🔧 Hazırlanıyor"
+                        BackgroundColor="#FFF8F9"
+                        TextColor="#333"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="Preparing"
+                        Clicked="OnStatusSelected" />
+
+                <Button Text="🚚 Yolda"
+                        BackgroundColor="#FFF8F9"
+                        TextColor="#333"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="OnTheWay"
+                        Clicked="OnStatusSelected" />
+
+                <Button Text="📦 Teslim Edildi"
+                        BackgroundColor="#FFF8F9"
+                        TextColor="#333"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="Delivered"
+                        Clicked="OnStatusSelected" />
+
+                <Button Text="❌ İptal Edildi"
+                        BackgroundColor="#FCE4EC"
+                        TextColor="#C2185B"
+                        BorderColor="#F8BBD9"
+                        BorderWidth="1"
+                        CornerRadius="10"
+                        HeightRequest="44"
+                        CommandParameter="Cancelled"
+                        Clicked="OnStatusSelected" />
+
+            </VerticalStackLayout>
+
+            <Button Text="Kapat"
+                    BackgroundColor="#F3E5F5"
+                    TextColor="#C2185B"
+                    CornerRadius="10"
+                    HeightRequest="44"
+                    Clicked="OnCloseTapped" />
+
+        </VerticalStackLayout>
+    </Border>
+</toolkit:Popup>

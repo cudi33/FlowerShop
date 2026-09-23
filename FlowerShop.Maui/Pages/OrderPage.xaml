@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="FlowerShop.Maui.Pages.OrderPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFF8F9">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- HEADER -->
+            <Grid BackgroundColor="#C2185B" Padding="16,12"
+                  ColumnDefinitions="Auto,*,Auto">
+                <Label Grid.Column="0"
+                       Text="←"
+                       FontSize="22"
+                       TextColor="White"
+                       VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="1"
+                       Text="🌸 FlowerShop"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="2"
+                       Text="Ürünler"
+                       TextColor="White"
+                       FontSize="14"
+                       VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProductsTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <VerticalStackLayout Padding="24" Spacing="20">
+
+                <Label Text="Sipariş Ver 🌹"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="#C2185B"
+                       HorizontalOptions="Center" />
+
+                <!-- بطاقة المنتج -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="16"
+                       BorderColor="#F8BBD9"
+                       HasShadow="True"
+                       Padding="0">
+                    <Grid ColumnDefinitions="120,*">
+                        <Grid Grid.Column="0"
+                              BackgroundColor="#FCE4EC"
+                              HeightRequest="120"
+                              WidthRequest="120">
+                            <Image x:Name="ProductImage"
+                                   Aspect="AspectFill"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill" />
+                            <Label Text="🌸"
+                                   FontSize="36"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   ZIndex="-1" />
+                        </Grid>
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="14"
+                                             Spacing="6"
+                                             VerticalOptions="Center">
+                            <Label x:Name="ProductNameLabel"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#333" />
+                            <Label x:Name="ProductCategoryLabel"
+                                   FontSize="12"
+                                   TextColor="#C2185B" />
+                            <Label x:Name="ProductPriceLabel"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#AD1457" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- فورم الطلب -->
+                <Frame BackgroundColor="White"
+                       CornerRadius="20"
+                       BorderColor="#F8BBD9"
+                       HasShadow="True"
+                       Padding="24">
+                    <VerticalStackLayout Spacing="18">
+
+                        <!-- الكمية -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Adet"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame x:Name="QuantityBorder"
+                                   Padding="12,0"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False"
+                                   HeightRequest="48">
+                                <Entry x:Name="QuantityEntry"
+                                       Text="1"
+                                       Keyboard="Numeric"
+                                       PlaceholderColor="#CCC"
+                                       TextColor="#333"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- العنوان ✅ جديد -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Teslimat Adresi *"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame x:Name="AddressBorder"
+                                   Padding="12"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False">
+                                <Editor x:Name="AddressEditor"
+                                        Placeholder="Mahalle, Cadde, Bina No, Daire..."
+                                        PlaceholderColor="#CCC"
+                                        TextColor="#333"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="70"
+                                        AutoSize="TextChanges" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- تاريخ التسليم -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Teslimat Tarihi"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame Padding="12,4"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False">
+                                <DatePicker x:Name="DeliveryDatePicker"
+                                            MinimumDate="{x:Static sys:DateTime.Today}"
+                                            Format="dd/MM/yyyy"
+                                            TextColor="#333"
+                                            BackgroundColor="Transparent" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- وقت التسليم -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Teslimat Saati"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame Padding="12,4"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False">
+                                <TimePicker x:Name="DeliveryTimePicker"
+                                            Format="HH:mm"
+                                            TextColor="#333"
+                                            BackgroundColor="Transparent" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- سورپريز -->
+                        <Frame Padding="14"
+                               CornerRadius="12"
+                               BorderColor="#F8BBD9"
+                               BackgroundColor="#FFF8F9"
+                               HasShadow="False">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <VerticalStackLayout Grid.Column="0" Spacing="2">
+                                    <Label Text="Sürpriz Teslimat 🎁"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#333" />
+                                    <Label Text="Alıcı bilmeden teslim edilsin"
+                                           FontSize="11"
+                                           TextColor="#999" />
+                                </VerticalStackLayout>
+                                <CheckBox x:Name="IsSurpriseCheckBox"
+                                          Grid.Column="1"
+                                          Color="#C2185B"
+                                          VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+
+                        <!-- ملاحظات -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Notlar (İsteğe Bağlı)"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame Padding="12"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False">
+                                <Editor x:Name="NotesEditor"
+                                        Placeholder="Özel isteklerinizi yazın..."
+                                        PlaceholderColor="#CCC"
+                                        TextColor="#333"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="80"
+                                        AutoSize="TextChanges" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- رسالة خطأ -->
+                        <Label x:Name="MessageLabel"
+                               TextColor="#E91E63"
+                               FontSize="13"
+                               HorizontalOptions="Center"
+                               IsVisible="False" />
+
+                        <!-- زر الطلب -->
+                        <Button Text="Sipariş Ver 🌸"
+                                BackgroundColor="#C2185B"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Clicked="OnOrderClicked" />
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

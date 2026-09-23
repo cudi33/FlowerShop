@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlowerShop.Maui.Pages.LoginPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#FFF8F9">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="0">
+
+            <!-- HEADER -->
+            <Grid BackgroundColor="#C2185B" Padding="16,12" ColumnDefinitions="*,Auto">
+                <Label Grid.Column="0"
+                       Text="🌸 FlowerShop"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+                <Label Grid.Column="1"
+                       Text="Ana Sayfa"
+                       TextColor="White"
+                       FontSize="14"
+                       VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHomeTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <!-- LOGIN CARD -->
+            <VerticalStackLayout Padding="24" Spacing="20" Margin="0,40,0,0">
+
+                <Label Text="Hoş Geldiniz 🌹"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#C2185B"
+                       HorizontalOptions="Center" />
+
+                <Label Text="Hesabınıza giriş yapın"
+                       FontSize="14"
+                       TextColor="#999"
+                       HorizontalOptions="Center" />
+
+                <Frame BackgroundColor="White"
+                       CornerRadius="20"
+                       BorderColor="#F8BBD9"
+                       HasShadow="True"
+                       Padding="24">
+                    <VerticalStackLayout Spacing="16">
+
+                        <!-- Email -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="E-posta"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame x:Name="EmailBorder"
+                                   Padding="12,0"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False"
+                                   HeightRequest="48">
+                                <Entry x:Name="EmailEntry"
+                                       Placeholder="ornek@email.com"
+                                       Keyboard="Email"
+                                       PlaceholderColor="#CCC"
+                                       TextColor="#333"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Password -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Şifre"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B" />
+                            <Frame x:Name="PasswordBorder"
+                                   Padding="12,0"
+                                   CornerRadius="12"
+                                   BorderColor="#F8BBD9"
+                                   BackgroundColor="#FFF8F9"
+                                   HasShadow="False"
+                                   HeightRequest="48">
+                                <Entry x:Name="PasswordEntry"
+                                       Placeholder="••••••••"
+                                       IsPassword="True"
+                                       PlaceholderColor="#CCC"
+                                       TextColor="#333"
+                                       BackgroundColor="Transparent"
+                                       VerticalOptions="Center" />
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Error Message -->
+                        <Label x:Name="MessageLabel"
+                               TextColor="#E91E63"
+                               FontSize="13"
+                               HorizontalOptions="Center"
+                               IsVisible="False" />
+
+                        <!-- Login Button -->
+                        <Button Text="Giriş Yap 🌸"
+                                BackgroundColor="#C2185B"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Clicked="OnLoginClicked" />
+
+                        <Label Text="Şifremi Unuttum?"
+                               FontSize="13"
+                               TextColor="#C2185B"
+                               HorizontalOptions="Center"
+                               Margin="0,4,0,0">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnForgotPasswordTapped" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                            <Label Text="Hesabınız yok mu?"
+                                   FontSize="13"
+                                   TextColor="#999"
+                                   VerticalOptions="Center" />
+                            <Label Text="Kayıt Ol"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#C2185B"
+                                   VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRegisterTapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

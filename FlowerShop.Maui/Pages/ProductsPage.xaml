@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlowerShop.Maui.Pages.ProductsPage"
+             Title="FlowerShop"
+             BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="16" RowSpacing="10">
+
+        <!-- Header -->
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0"
+                    Text="←"
+                    TextColor="#C2185B"
+                    BackgroundColor="Transparent"
+                    FontSize="22"
+                    Clicked="OnBackTapped" />
+            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                <Label Text="🌸 Ürünlerimiz"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="#C2185B" />
+                <Label Text="Taze çiçekler, özel tasarımlar"
+                       FontSize="13"
+                       TextColor="#999" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- SearchBar -->
+        <SearchBar Grid.Row="1"
+                   x:Name="ProductSearchBar"
+                   Placeholder="Ürün ara..."
+                   SearchButtonPressed="OnSearchClicked"
+                   BackgroundColor="White"
+                   CancelButtonColor="#C2185B" />
+
+        <!-- Category Picker -->
+        <Frame Grid.Row="2"
+               Padding="8,4"
+               CornerRadius="10"
+               BorderColor="#F8BBD9"
+               BackgroundColor="White"
+               HasShadow="False">
+            <Picker x:Name="CategoryPicker"
+                    Title="Kategori seç"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedIndexChanged="OnCategoryChanged"
+                    TitleColor="#C2185B"
+                    TextColor="#333" />
+        </Frame>
+
+        <!-- Products Grid -->
+        <CollectionView Grid.Row="3"
+                        x:Name="ProductsCollectionView"
+                        ItemsLayout="VerticalGrid, 2"
+                        Margin="0,5,0,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="5"
+                           Padding="0"
+                           CornerRadius="16"
+                           BorderColor="#F8BBD9"
+                           BackgroundColor="White"
+                           HasShadow="True">
+                        <VerticalStackLayout Spacing="0">
+
+                            <!-- صورة بدون Clip -->
+                            <Grid BackgroundColor="#FCE4EC" HeightRequest="130">
+                                <Image Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Fill" />
+                                <Label Text="🌸"
+                                       FontSize="36"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       ZIndex="-1" />
+                            </Grid>
+
+                            <VerticalStackLayout Padding="10,8" Spacing="4">
+
+                                <Label Text="{Binding Name}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#333"
+                                       LineBreakMode="TailTruncation" />
+
+                                <Label Text="{Binding CategoryName}"
+                                       FontSize="11"
+                                       TextColor="#C2185B" />
+
+                                <Label Text="{Binding Price, StringFormat='{0:N2} ₺'}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#AD1457" />
+
+                                <Frame Padding="6,2"
+                                       CornerRadius="8"
+                                       BorderColor="Transparent"
+                                       BackgroundColor="#F3E5F5"
+                                       HorizontalOptions="Start"
+                                       HasShadow="False">
+                                    <Label Text="{Binding StockQuantity, StringFormat='Stok: {0}'}"
+                                           FontSize="11"
+                                           TextColor="#7B1FA2" />
+                                </Frame>
+
+                                <Button Text="Sipariş Ver"
+                                        BackgroundColor="#C2185B"
+                                        TextColor="White"
+                                        CornerRadius="12"
+                                        HeightRequest="34"
+                                        FontSize="12"
+                                        Margin="0,4,0,0"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnOrderProductClicked" />
+
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

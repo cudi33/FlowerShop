@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FlowerShop.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FlowerShop.Maui"
+    xmlns:pages="clr-namespace:FlowerShop.Maui.Pages"
+    Shell.NavBarIsVisible="False">
+
+    <TabBar Shell.TabBarIsVisible="False">
+        <ShellContent Route="main"
+                      ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent Route="login"
+                      ContentTemplate="{DataTemplate pages:LoginPage}" />
+        <ShellContent Route="products"
+                      ContentTemplate="{DataTemplate pages:ProductsPage}" />
+        <ShellContent Route="orders"
+              ContentTemplate="{DataTemplate pages:OrderPage}" />
+        <ShellContent Route="register"
+              ContentTemplate="{DataTemplate pages:RegisterPage}" />
+        <ShellContent Route="myorders"
+              ContentTemplate="{DataTemplate pages:OrdersPage}" />
+        <ShellContent Route="changepassword"
+              ContentTemplate="{DataTemplate pages:ChangePasswordPage}" />
+        <ShellContent Route="adminorders"
+                      ContentTemplate="{DataTemplate pages:AdminOrdersPage}" />
+        <ShellContent Route="admindashboard"
+              ContentTemplate="{DataTemplate pages:AdminDashboardPage}" />
+        <ShellContent Route="admincategories"
+              ContentTemplate="{DataTemplate pages:AdminCategoriesPage}" />
+        <ShellContent Route="adminusers"
+              ContentTemplate="{DataTemplate pages:AdminUsersPage}" />
+        <ShellContent Route="adminproducts"
+              ContentTemplate="{DataTemplate pages:AdminProductsPage}" />
+        <ShellContent Route="payment"
+              ContentTemplate="{DataTemplate pages:PaymentPage}" />
+        <ShellContent Route="forgotpassword"
+              ContentTemplate="{DataTemplate pages:ForgotPasswordPage}" />
+    </TabBar>
+</Shell>

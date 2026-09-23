@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlowerShop.Maui.Pages.PaymentPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#C2185B"
+              Padding="16"
+              ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0"
+                    Text="←"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    FontSize="22"
+                    Clicked="OnBackTapped" />
+            <Label Grid.Column="1"
+                   Text="Ödeme 💳"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" Padding="24">
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Order Summary -->
+                <Border Padding="16"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#F8BBD9">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Sipariş Özeti"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#C2185B" />
+                        <Label x:Name="ProductNameLabel"
+                               FontSize="14"
+                               TextColor="#333" />
+                        <Label x:Name="TotalPriceLabel"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#AD1457" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Payment Method -->
+                <Border Padding="16"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#F8BBD9">
+                    <VerticalStackLayout Spacing="12">
+
+                        <Label Text="Ödeme Yöntemi"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#C2185B" />
+
+                        <!-- Online -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <RadioButton x:Name="OnlineRadio"
+                                         Grid.Column="0"
+                                         GroupName="PaymentMethod"
+                                         CheckedChanged="OnPaymentMethodChanged" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label Text="💳 Online Ödeme"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#333" />
+                                <Label Text="Kredi/Banka kartı ile online ödeme"
+                                       FontSize="12"
+                                       TextColor="#888" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Upon Delivery -->
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                            <RadioButton x:Name="DeliveryRadio"
+                                         Grid.Column="0"
+                                         GroupName="PaymentMethod"
+                                         IsChecked="True"
+                                         CheckedChanged="OnPaymentMethodChanged" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                                <Label Text="🚚 Kapıda Ödeme"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#333" />
+                                <Label Text="Teslimat sırasında ödeme"
+                                       FontSize="12"
+                                       TextColor="#888" />
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <!-- Cash or Card — يظهر بس لما Kapıda Ödeme محدد -->
+                        <Border x:Name="DeliveryTypeView"
+                                Padding="12"
+                                BackgroundColor="#FFF8F9"
+                                StrokeShape="RoundRectangle 10"
+                                Stroke="#F8BBD9">
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="Ödeme Türü"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="#C2185B" />
+
+                                <!-- Cash -->
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                    <RadioButton x:Name="CashRadio"
+                                                 Grid.Column="0"
+                                                 GroupName="DeliveryType"
+                                                 IsChecked="True" />
+                                    <Label Grid.Column="1"
+                                           Text="💵 Nakit"
+                                           FontSize="14"
+                                           TextColor="#333"
+                                           VerticalOptions="Center" />
+                                </Grid>
+
+                                <!-- Card -->
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                    <RadioButton x:Name="CardRadio"
+                                                 Grid.Column="0"
+                                                 GroupName="DeliveryType"/>
+                                    <Label Grid.Column="1"
+                                           Text="💳 Kredi/Banka Kartı"
+                                           FontSize="14"
+                                           TextColor="#333"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Online Payment Form — يظهر بس لما Online محدد -->
+                        <Border x:Name="OnlinePaymentView"
+                                Padding="12"
+                                BackgroundColor="#FFF8F9"
+                                StrokeShape="RoundRectangle 10"
+                                Stroke="#F8BBD9"
+                                IsVisible="False">
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="Kart Bilgileri"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="#C2185B" />
+
+                                <Border Stroke="#F8BBD9"
+                                        StrokeShape="RoundRectangle 8"
+                                        BackgroundColor="White"
+                                        Padding="8,0">
+                                    <Entry x:Name="CardNumberEntry"
+                                           Placeholder="Kart Numarası"
+                                           Keyboard="Numeric"
+                                           MaxLength="16"
+                                           TextColor="#333"
+                                           PlaceholderColor="#CCC" />
+                                </Border>
+
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                                    <Border Grid.Column="0"
+                                            Stroke="#F8BBD9"
+                                            StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="White"
+                                            Padding="8,0">
+                                        <Entry x:Name="ExpiryEntry"
+                                               Placeholder="AA/YY"
+                                               MaxLength="5"
+                                               TextColor="#333"
+                                               PlaceholderColor="#CCC" />
+                                    </Border>
+                                    <Border Grid.Column="1"
+                                            Stroke="#F8BBD9"
+                                            StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="White"
+                                            Padding="8,0">
+                                        <Entry x:Name="CvvEntry"
+                                               Placeholder="CVV"
+                                               Keyboard="Numeric"
+                                               MaxLength="3"
+                                               IsPassword="True"
+                                               TextColor="#333"
+                                               PlaceholderColor="#CCC" />
+                                    </Border>
+                                </Grid>
+
+                                <Border Stroke="#F8BBD9"
+                                        StrokeShape="RoundRectangle 8"
+                                        BackgroundColor="White"
+                                        Padding="8,0">
+                                    <Entry x:Name="CardHolderEntry"
+                                           Placeholder="Kart Sahibinin Adı"
+                                           TextColor="#333"
+                                           PlaceholderColor="#CCC" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Error Message -->
+                <Label x:Name="MessageLabel"
+                       IsVisible="False"
+                       FontSize="13"
+                       TextColor="#D32F2F"
+                       HorizontalOptions="Center" />
+
+                <!-- Confirm Button -->
+                <Button x:Name="ConfirmButton"
+                        Text="✅ Siparişi Onayla"
+                        BackgroundColor="#C2185B"
+                        TextColor="White"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        CornerRadius="25"
+                        HeightRequest="52"
+                        Clicked="OnConfirmOrderClicked" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

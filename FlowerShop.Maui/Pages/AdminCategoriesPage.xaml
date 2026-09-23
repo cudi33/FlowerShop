@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="FlowerShop.Maui.Pages.AdminCategoriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#FFF8F9">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header -->
+        <Grid Grid.Row="0"
+              BackgroundColor="#C2185B"
+              Padding="16"
+              ColumnDefinitions="Auto,*">
+            <Button Grid.Column="0"
+                    Text="←"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    FontSize="22"
+                    Clicked="OnBackTapped" />
+            <Label Grid.Column="1"
+                   Text="Kategoriler 🗂️"
+                   TextColor="White"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" Padding="16">
+            <VerticalStackLayout Spacing="16">
+
+                <!-- Add/Edit Form -->
+                <Border Padding="16"
+                        BackgroundColor="White"
+                        StrokeShape="RoundRectangle 12"
+                        Stroke="#F8BBD9">
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label x:Name="FormTitleLabel"
+                               Text="Yeni Kategori Ekle"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="#C2185B" />
+
+                        <!-- Name -->
+                        <Border x:Name="NameBorder"
+                                Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Entry x:Name="NameEntry"
+                                   Placeholder="Kategori adı *"
+                                   TextColor="#333"
+                                   PlaceholderColor="#CCC" />
+                        </Border>
+
+                        <!-- Description -->
+                        <Border Stroke="#F8BBD9"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#FFF8F9"
+                                Padding="8,0">
+                            <Entry x:Name="DescEntry"
+                                   Placeholder="Açıklama (isteğe bağlı)"
+                                   TextColor="#333"
+                                   PlaceholderColor="#CCC" />
+                        </Border>
+
+                        <!-- Image URL + 📷 Button -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <Border Grid.Column="0"
+                                    Stroke="#F8BBD9"
+                                    StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#FFF8F9"
+                                    Padding="8,0">
+                                <Entry x:Name="ImageUrlEntry"
+                                       Placeholder="Resim URL (isteğe bağlı)"
+                                       TextColor="#333"
+                                       PlaceholderColor="#CCC"
+                                       Keyboard="Url"
+                                       IsReadOnly="True" />
+                            </Border>
+                            <Button Grid.Column="1"
+                                    Text="📷"
+                                    BackgroundColor="#F3E5F5"
+                                    TextColor="#C2185B"
+                                    CornerRadius="10"
+                                    WidthRequest="50"
+                                    HeightRequest="44"
+                                    Clicked="OnSelectImageClicked" />
+                        </Grid>
+
+                        <!-- Image Preview -->
+                        <Image x:Name="ImagePreview"
+                               HeightRequest="120"
+                               Aspect="AspectFill"
+                               BackgroundColor="#FCE4EC"
+                               IsVisible="False">
+                            <Image.Clip>
+                                <RoundRectangleGeometry CornerRadius="10"
+                                                        Rect="0,0,500,120" />
+                            </Image.Clip>
+                        </Image>
+
+                        <Label x:Name="FormMessageLabel"
+                               IsVisible="False"
+                               FontSize="12"
+                               HorizontalOptions="Center" />
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button Grid.Column="0"
+                                    x:Name="SaveButton"
+                                    Text="💾 Kaydet"
+                                    BackgroundColor="#C2185B"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    HeightRequest="44"
+                                    Clicked="OnSaveCategoryClicked" />
+                            <Button Grid.Column="1"
+                                    x:Name="CancelButton"
+                                    Text="İptal"
+                                    BackgroundColor="#F3E5F5"
+                                    TextColor="#C2185B"
+                                    CornerRadius="10"
+                                    HeightRequest="44"
+                                    IsVisible="False"
+                                    Clicked="OnCancelEditClicked" />
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Loading -->
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                   IsRunning="False"
+                                   IsVisible="False"
+                                   Color="#C2185B"
+                                   HorizontalOptions="Center" />
+
+                <!-- Empty -->
+                <VerticalStackLayout x:Name="EmptyView"
+                                     IsVisible="False"
+                                     HorizontalOptions="Center"
+                                     Spacing="8"
+                                     Margin="0,40,0,0">
+                    <Label Text="🗂️" FontSize="48" HorizontalOptions="Center" />
+                    <Label Text="Henüz kategori yok"
+                           FontSize="18"
+                           TextColor="#C2185B"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Categories Grid 2 columns -->
+                <CollectionView x:Name="CategoriesCollection"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="2"
+                                         HorizontalItemSpacing="10"
+                                         VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="0"
+                                    BackgroundColor="White"
+                                    StrokeShape="RoundRectangle 14"
+                                    Stroke="#F8BBD9">
+                                <Grid RowDefinitions="130,Auto">
+
+                                    <!-- Category Image -->
+                                    <Grid Grid.Row="0" BackgroundColor="#FCE4EC">
+                                        <Image Source="{Binding ImageUrl}"
+                                               Aspect="AspectFill"
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="Fill" />
+                                        <!-- Fallback emoji -->
+                                        <Label Text="🌸"
+                                               FontSize="40"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               ZIndex="-1" />
+                                    </Grid>
+
+                                    <!-- Name + Buttons -->
+                                    <Grid Grid.Row="1"
+                                          Padding="8,6"
+                                          ColumnDefinitions="*,Auto,Auto"
+                                          BackgroundColor="White">
+                                        <Label Grid.Column="0"
+                                               Text="{Binding Name}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#333"
+                                               VerticalOptions="Center"
+                                               LineBreakMode="TailTruncation" />
+                                        <Button Grid.Column="1"
+                                                Text="✏️"
+                                                BackgroundColor="#F3E5F5"
+                                                TextColor="#7B1FA2"
+                                                CornerRadius="8"
+                                                WidthRequest="36"
+                                                HeightRequest="36"
+                                                Padding="0"
+                                                Margin="0,0,4,0"
+                                                VerticalOptions="Center"
+                                                CommandParameter="{Binding .}"
+                                                Clicked="OnEditCategoryClicked" />
+                                        <Button Grid.Column="2"
+                                                Text="🗑️"
+                                                BackgroundColor="#FCE4EC"
+                                                TextColor="#C2185B"
+                                                CornerRadius="8"
+                                                WidthRequest="36"
+                                                HeightRequest="36"
+                                                Padding="0"
+                                                VerticalOptions="Center"
+                                                CommandParameter="{Binding Id}"
+                                                Clicked="OnDeleteCategoryClicked" />
+                                    </Grid>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
