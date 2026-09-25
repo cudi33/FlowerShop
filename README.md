@@ -151,7 +151,7 @@ FlowerShop/
 └──────────────────────┘
 ```
 
-## 📱 User Interface
+## 🖥️ User Interface
 
 The client application is developed using **.NET MAUI and XAML**.
 
