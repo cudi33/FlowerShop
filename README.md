@@ -1,6 +1,6 @@
 # 🌸 FlowerShop
 
-FlowerShop is a full-stack **flower ordering and management application** developed primarily in **C#** using **.NET MAUI** for the client application and **ASP.NET Core Minimal API** for the backend.
+FlowerShop is a full-stack flower ordering and management desktop application developed primarily in C#, using .NET MAUI for the desktop client and ASP.NET Core Minimal API for the backend.
 
 The system provides separate experiences for customers and administrators. Customers can browse flowers, search and filter products, place orders, choose delivery details and track their orders, while administrators can manage products, categories, users, and customer orders.
 
